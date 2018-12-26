@@ -2,7 +2,7 @@
 <html lang="en-us">
 
 <head>
-    <title>Title</title>
+    <title>Psychic Game</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- reset -->
@@ -16,11 +16,82 @@
         crossorigin="anonymous"></script>
 </head>
 
+<!-- 1.  Pick a random word
+    1.A Create for loops for many of these
+    2. Have the user guess a letter
+    3. Provide a way for the user to end early if they would like
+    4. Check that the player's guess is a valid letter
+    5. Track the letters the player has guessed
+    6. Provide the user ability to see their progress
+    7. Complete the game if word is guessed correctly 
+
+    Pick a random word
+    While the word has not been guessed {
+        Show the player their current progress
+        Get a guess from the player
+
+    If the player wants to quit the game {
+        Quit the game
+    }
+        Else If the guess is not a single letter {
+            Tell the player to pick a single letter
+    }
+        Else {
+            If the guess is in the word {
+                Update the player's progress with the guess
+-->
+
 <body>
+    <h1> Psychic Guessing Game!</h1>
 
+    <script>
+        //Prompt for name to use throughout the game.
+        var name = prompt("What's your name?");
+        console.log (name);
 
+        //The word array (called "words") to be used for the game
+        var words = ["javascript", "monkey", "amazing", "pancake"];
 
+        //The random pick of the word based 
+        var word = words[Math.floor(Math.random() * words.length)];
 
+        //The answerArray is what is used to display the length of our word
+        var answerArray = [];
+        for (var i = 0; i < word.length; i++) {
+            answerArray[i] = "_";
+        }
+
+        //Counts the remaining empty letters in our profile
+        var remainingLetters = word.length;
+
+        //The game loop to display for our user
+        while (remainingLetters > 0) {
+            alert(answerArray.join(" "));
+
+            //Obtain guess from user
+            var guess = prompt("Guess a letter, or click Cancel to stop playing.");
+            if (guess === null) {
+                //Exit the game loop
+                break;
+            } else if (guess.length !==1) {
+                alert ("Please enter a single letter.");
+            } else {
+                //Update the array with the guess
+                for (var j = 0; j < word.length; j++) {
+                    if (word[j] === guess) {
+                        answerArray[j] = guess;
+                        remainingLetters--;
+                    }
+                }
+            }
+        //End the game loop
+        };
+
+        //Congratulate player on guessing correctly
+        alert(answerArray.join(" "));
+        alert("Good Job! The answer was " + word) + ".";
+
+    </script>
 
     <script src="assets/javascript/script.js"></script>
 </body>
