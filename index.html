@@ -44,13 +44,25 @@
 <body>
     <h1> Psychic Guessing Game!</h1>
 
+    <p id="guesses"></p>
+    <p id="word"></p>
+
     <script>
-        //Prompt for name to use throughout the game.
+        //Prompt for name to use during the game.
         var name = prompt("What's your name?");
-        console.log (name);
+        console.log(name);
 
         //The word array (called "words") to be used for the game
-        var words = ["javascript", "monkey", "amazing", "pancake"];
+        var words = [
+            "javascript",
+            "monkey",
+            "amazing",
+            "pancake",
+            "bicycle"
+        ];
+
+        //Start guess count at 0.
+        var guesses = 0;
 
         //The random pick of the word based 
         var word = words[Math.floor(Math.random() * words.length)];
@@ -59,9 +71,9 @@
         var answerArray = [];
         for (var i = 0; i < word.length; i++) {
             answerArray[i] = "_";
-        }
+        };
 
-        //Counts the remaining empty letters in our profile
+        //Counts the remaining empty letters in our word
         var remainingLetters = word.length;
 
         //The game loop to display for our user
@@ -73,8 +85,8 @@
             if (guess === null) {
                 //Exit the game loop
                 break;
-            } else if (guess.length !==1) {
-                alert ("Please enter a single letter.");
+            } else if (guess.length !== 1) {
+                alert("Please enter a single letter.");
             } else {
                 //Update the array with the guess
                 for (var j = 0; j < word.length; j++) {
@@ -84,13 +96,36 @@
                     }
                 }
             }
-        //End the game loop
+            //End the game loop
+        };
+
+        // Call the functions to be displayed
+        remainingLetters();
+        updateGuesses();
+
+        // When the user presses a key, it will run the following function...
+        document.onkeyup = function (event) {
+            return;
+
+            //Determine which key was pressed, make it lower case, and set it to the guess variable.
+            var guess = event.key.toLowerCase();
+
+            if (guess === "escape") {
+                break;
+            }
+        }
+
+
+
+
+        //Tracking the guesses from the user
+        function updateGuesses() {
+            document.querySelector("#guesses").innerHTML = "Guesses: " + guesses
         };
 
         //Congratulate player on guessing correctly
-        alert(answerArray.join(" "));
-        alert("Good Job! The answer was " + word) + ".";
-
+        document.querySelector("#guesses").innerHTML = "Game Over!";
+        document.querySelector("#word").innerHTML = "Good Job " + name + "!  The answer was " + word + ".";
     </script>
 
     <script src="assets/javascript/script.js"></script>
