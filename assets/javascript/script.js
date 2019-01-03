@@ -2,15 +2,24 @@
 (function () {
 
     //Prompt for name to use during the game.
-    var name = prompt("What's your name?");
+    //var name = prompt("What's your name?");
 
     //The word array (called "words") to be used for the game
     var words = [
         "javascript",
-        "example",
-        "amazing",
-        "pancake",
-        "bicycle"
+        "coding",
+        "css",
+        "bootstrap",
+        "computer",
+        "framework",
+        "git",
+        "github",
+        "html",
+        "jquery",
+        "pseudocode",
+        "syntax",
+        "unicorn",
+        "database"
     ];
 
     var guesses, word, answerArray, remainingLetters;
@@ -27,8 +36,7 @@
         // Hide 'play again' button.
         $reset.classList.add('hide')
 
-        // Reset global guess count.
-        guesses = 0;
+
 
         // Pick a random word from our array.
         word = words[Math.floor(Math.random() * words.length)];
@@ -49,6 +57,23 @@
 
     }
 
+    function checkNumberOfGuesses(guesses) {
+        // Reset global guess count.
+        guesses = 0;
+        //Display number of guesses made and the directions
+        document.querySelector("#guesses").innerHTML = "Number of Guesses: " + guesses;
+        document.querySelector("#word").innerHTML = "Press any key to guess an empty spot.  Be careful though!  You only get 7 chances before it is game over!";
+
+        if (guesses === 7) {
+            //Congratulate player on trying their best
+            document.querySelector("#guesses").innerHTML = "Game Over!";
+            document.querySelector("#word").innerHTML = "Good try " + name + "!  The word was " + word;
+
+            $reset.classList.remove('hide')
+
+        }
+    };
+
 
     function checkGuess(guess) {
         //Obtain guess from user
@@ -58,7 +83,7 @@
         for (var j = 0; j < word.length; j++) {
             // If word letter is same as user guess
             if (word[j] === guess && // AND
-                // we don't want to count a letter that's already been answered!
+                // we don't want to count a letter that's already been answered
                 answerArray[j] !== guess) {
                 answerArray[j] = guess;
                 remainingLetters--;
@@ -87,6 +112,8 @@
             $reset.classList.remove('hide')
 
         }
+
+
     });
 
 
@@ -98,9 +125,5 @@
         // Replay game
         startGame();
     });
-
-
-    // jQuery
-    $(document).ready(function () {});
 
 })();
