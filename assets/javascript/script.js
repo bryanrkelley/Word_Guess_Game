@@ -2,7 +2,7 @@
 (function () {
 
     //Prompt for name to use during the game.
-    //var name = prompt("What's your name?");
+    var name = prompt("What's your name?");
 
     //The word array (called "words") to be used for the game
     var words = [
@@ -50,22 +50,22 @@
         // Display word placeholder
         document.querySelector("#result").innerHTML = answerArray.join(' ');
 
-        // @todo: display instructions "press any key.."
-
         // Counts the remaining empty letters in our word
         remainingLetters = word.length;
+
+        document.querySelector("#word").innerHTML = "Directive: Press any key to guess an empty spot.  Be careful though!  You only get 7 chances before it is game over!";
 
     }
 
     function updateNumberOfGuesses() {
         //Display number of guesses made and the directions
         document.querySelector("#guesses").innerHTML = "Number of Guesses: " + guesses;
-        document.querySelector("#word").innerHTML = "Press any key to guess an empty spot.  Be careful though!  You only get 7 chances before it is game over!";
+
 
         if (guesses === 7) {
             //Congratulate player on trying their best
-            document.querySelector("#guesses").innerHTML = "Game Over!";
-            document.querySelector("#word").innerHTML = "Good try " + name + "!  The word was " + word;
+            document.querySelector("#guesses").innerHTML = "Error: Max Limit Obtained.  Game Over!";
+            document.querySelector("#word").innerHTML = "Good try " + name + "!  The word was " + word + ".";
 
             $reset.classList.remove('hide');
 
@@ -112,8 +112,8 @@
 
         if (remainingLetters === 0) {
             //Congratulate player on guessing correctly
-            document.querySelector("#guesses").innerHTML = "Game Over!";
-            document.querySelector("#word").innerHTML = "Good Job " + name + "!";
+            document.querySelector("#guesses").innerHTML = "Directive: Winner!";
+            document.querySelector("#word").innerHTML = "Good Job " + name + "!  Let's play again!";
 
             $reset.classList.remove('hide')
 
