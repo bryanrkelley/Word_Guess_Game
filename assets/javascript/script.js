@@ -2,7 +2,7 @@
 (function () {
 
     //Prompt for name to use during the game.
-    var name = prompt("What's your name?");
+    // var name = prompt("What's your name?");
 
     //The word array (called "words") to be used for the game
     var words = [
@@ -22,7 +22,7 @@
         "database"
     ];
 
-    var guesses, word, answerArray, remainingLetters, lettersGuessed;
+    var guesses, word, answerArray, remainingLetters, lettersGuessed, wins, losses;
 
     var $reset = document.getElementById('reset');
 
@@ -39,6 +39,8 @@
 
         guesses = 0;
         lettersGuessed = [];
+        wins = 0;
+        losses = 0;
 
         // Pick a random word from our array.
         word = words[Math.floor(Math.random() * words.length)].toLowerCase();
@@ -68,7 +70,13 @@
         if (guesses === 7) {
             //Congratulate player on trying their best
             document.querySelector("#guesses").textContent = "<Error: Max Limit Obtained.  Game Over!>";
-            document.querySelector("#word").innerHTML = "Good try " + name + "!  The word was " + word + ".";
+            document.querySelector("#word").innerHTML = "Good try " + name + "!  The word was " + word + ".  Press 'Enter/Return' to play again!";
+
+            //Tried to create a box that would tally the total wins and losses.  Unsure what I am/am not doing correctly
+            // losses = losses + losses++;
+            // losses++;
+
+            // document.querySelector("#losses").innerHTML = "You have lost: " + losses;
 
             $reset.classList.remove('hide');
 
@@ -88,7 +96,7 @@
             triggerAlertDupGuess(guess);
             return;
         }
-        
+
         //Update the array with the guess
         for (var j = 0; j < word.length; j++) {
             // If word letter is same as user guess
@@ -96,9 +104,6 @@
 
                 remainingLetters--;
                 isValid = true;
-                // && // AND
-                // we don't want to count a letter that's already been answered
-                // answerArray[j] !== guess) {
                 answerArray[j] = guess;
             }
         }
@@ -129,6 +134,9 @@
     }
 
 
+
+
+
     function handleValidGuess(e) {
 
         var key = String.fromCharCode(e.which);
@@ -140,7 +148,14 @@
         if (remainingLetters === 0) {
             //Congratulate player on guessing correctly
             document.querySelector("#guesses").textContent = "<Directive: Winner!>";
-            document.querySelector("#word").innerHTML = "Good Job " + name + "!  Let's play again!";
+            document.querySelector("#word").innerHTML = "Good Job " + name + "!  Press 'Enter/Return' to play again!";
+
+            //Tried to create a box that would tally the total wins and losses.  Unsure what I am/am not doing correctly
+            // wins = wins + wins++;
+            // wins++;
+
+            // document.querySelector("#wins").innerHTML = "You have won: " + wins;
+
 
             $reset.classList.remove('hide')
 
