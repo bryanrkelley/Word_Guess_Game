@@ -22,7 +22,7 @@
         "database"
     ];
 
-    var guesses, word, answerArray, remainingLetters, lettersGuessed, wins, losses;
+    var guesses, word, answerArray, remainingLetters, lettersGuessed, wins, losses, guessLimit;
 
     var $reset = document.getElementById('reset');
 
@@ -41,6 +41,7 @@
         lettersGuessed = [];
         wins = 0;
         losses = 0;
+        guessLimit = 9;
 
         // Pick a random word from our array.
         word = words[Math.floor(Math.random() * words.length)].toLowerCase();
@@ -58,7 +59,7 @@
         // Counts the remaining empty letters in our word
         remainingLetters = word.length;
 
-        document.querySelector("#word").textContent = "<Directive: Press any key to guess an empty spot.  Be careful though!  You only get 7 chances before it is game over!>";
+        document.querySelector("#word").textContent = "<Directive: Press any key to guess an empty spot.  Be careful though!  You only get 9 chances before it is game over!>";
 
     }
 
@@ -66,21 +67,27 @@
         //Display number of guesses made and the directions
         document.querySelector("#guesses").innerHTML = "Number of Guesses: " + guesses;
 
-
-        if (guesses === 7) {
+        //Cannot get win/lose logic to update dynamically.  I know it has something to do with line 123 that calls this function but unable to understand my error
+        // Lose Logic
+        if (guesses === guessLimit) {
+            document.querySelector("#guesses").textContent = "<Error: Max Limit Obtained>  Game Over!";
             //Congratulate player on trying their best
-            document.querySelector("#guesses").textContent = "<Error: Max Limit Obtained.  Game Over!>";
             document.querySelector("#word").innerHTML = "Good try " + name + "!  The word was " + word + ".  Press 'Enter/Return' to play again!";
-
-            //Tried to create a box that would tally the total wins and losses.  Unsure what I am/am not doing correctly
-            // losses = losses + losses++;
-            // losses++;
-
-            // document.querySelector("#losses").innerHTML = "You have lost: " + losses;
-
-            $reset.classList.remove('hide');
-
+            losses++; // increments the losses variable by 1 e.g. losses = losses + 1
+            document.querySelector("#losses").innerHTML = losses;
         }
+
+        // Win Logic
+        if (answerArray.join('') === word) {
+            //Congratulate player on guessing correctly
+            document.querySelector("#guesses").textContent = "<Directive: Winner!>";
+            document.querySelector("#word").innerHTML = "Good Job " + name + "!  Press 'Enter/Return' to play again!";
+            wins++; // increments the wins variable by 1 e.g. wins = wins + 1
+            document.querySelector("#wins").innerHTML = wins;
+        }
+
+        $reset.classList.remove('hide');
+
     }
 
 
@@ -91,7 +98,7 @@
 
         var isValid = false;
 
-        // Check if dup guess
+        //Check if dup guess can be DISABLED FOR TESTING
         if (lettersGuessed.includes(guess)) {
             triggerAlertDupGuess(guess);
             return;
@@ -101,7 +108,6 @@
         for (var j = 0; j < word.length; j++) {
             // If word letter is same as user guess
             if (word[j] === guess) {
-
                 remainingLetters--;
                 isValid = true;
                 answerArray[j] = guess;
@@ -113,8 +119,8 @@
             guesses++;
             lettersGuessed.push(guess);
         }
-        updateNumberOfGuesses()
 
+        updateNumberOfGuesses()
 
         document.querySelector("#guessedLetters").innerHTML = "You have tried: " + lettersGuessed;
 
@@ -134,9 +140,6 @@
     }
 
 
-
-
-
     function handleValidGuess(e) {
 
         var key = String.fromCharCode(e.which);
@@ -144,23 +147,6 @@
         var result = checkGuess(key);
 
         document.querySelector("#result").innerHTML = result.join(' ');
-
-        if (remainingLetters === 0) {
-            //Congratulate player on guessing correctly
-            document.querySelector("#guesses").textContent = "<Directive: Winner!>";
-            document.querySelector("#word").innerHTML = "Good Job " + name + "!  Press 'Enter/Return' to play again!";
-
-            //Tried to create a box that would tally the total wins and losses.  Unsure what I am/am not doing correctly
-            // wins = wins + wins++;
-            // wins++;
-
-            // document.querySelector("#wins").innerHTML = "You have won: " + wins;
-
-
-            $reset.classList.remove('hide')
-
-        }
-
     }
 
     // attach handler to the keydown event of the document
