@@ -2,7 +2,7 @@
 (function () {
 
     //Prompt for name to use during the game.
-    // var name = prompt("What's your name?");
+    var name = prompt("What's your name?");
 
     //The word array (called "words") to be used for the game
     var words = [
