@@ -22,7 +22,7 @@
         "database"
     ];
 
-    var guesses, word, answerArray, remainingLetters, lettersGuessed, wins, losses, guessLimit;
+    var guesses, word, answerArray, remainingLetters, lettersGuessed, wins = 0, losses = 0, guessLimit;
 
     var $reset = document.getElementById('reset');
 
@@ -39,8 +39,6 @@
 
         guesses = 0;
         lettersGuessed = [];
-        wins = 0;
-        losses = 0;
         guessLimit = 9;
 
         // Pick a random word from our array.
