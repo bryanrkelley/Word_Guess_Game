@@ -65,7 +65,6 @@
         //Display number of guesses made and the directions
         document.querySelector("#guesses").innerHTML = "Number of Guesses: " + guesses;
 
-        //Cannot get win/lose logic to update dynamically.  I know it has something to do with line 123 that calls this function but unable to understand my error
         // Lose Logic
         if (guesses === guessLimit) {
             document.querySelector("#guesses").textContent = "<Error: Max Limit Obtained>  Game Over!";
