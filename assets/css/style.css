@@ -2,6 +2,22 @@
     display: none;
 }
 
+.row {
+    padding: .1vh;
+}
+
 .display-4{
     font-family: 'ZCOOL KuaiLe', cursive;
 }
+
+footer {
+    background: #333333;
+    color: white;
+    margin-top: 10px;
+    height: 5vh;
+    text-align: right;
+    padding: .5vh;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+  }
